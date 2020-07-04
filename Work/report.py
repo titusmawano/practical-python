@@ -10,7 +10,7 @@ from portfolio import Portfolio
 def read_portfolio(filename):
     with open(filename) as f:
         portdicts = parse_csv(f, select=['name','shares','price'], types=[str, int, float], has_headers=True)
-    portfolio = Portfolio([Stock(p['name'], p['shares'], p['price']) for p in portdicts])
+    portfolio = Portfolio( [ Stock(p['name'], p['shares'], p['price']) for p in portdicts] )
     return portfolio
 
 def read_prices(filename):
