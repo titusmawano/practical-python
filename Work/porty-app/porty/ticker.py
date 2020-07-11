@@ -1,6 +1,6 @@
 # ticker.py
 
-from follow import follow
+from .follow import follow
 import csv
 
 def select_columns(rows, indices):

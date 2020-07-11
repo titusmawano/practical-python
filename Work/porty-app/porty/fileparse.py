@@ -1,9 +1,10 @@
 # fileparse.py
 #
 # Exercise 3.3
-import csv
+import csv, logging
+log = logging.getLogger(__name__)
 
-def parse_csv(lines, select=None, types=[], has_headers=False, delimiter=',', silence_errors=True):
+def parse_csv(lines, select=None, types=[], has_headers=False, delimiter=',', silence_errors=False):
     '''
     Parse a csv file into a list of records
     '''
@@ -35,8 +36,9 @@ def parse_csv(lines, select=None, types=[], has_headers=False, delimiter=',', si
                     row[0:len(typed_row)] = typed_row
             except ValueError as e:
                 if not silence_errors:
-                    print(f'Row {rowno} Could not convert {row}')
-                    print(f'Row Reason : {e}')
+                    log.warning("Row %d: Couldn't convert %s", rowno, row)
+                    log.debug("Row %d: Reason %s", rowno, e)
+                continue
                 
             if headers:
                 record = dict(zip(headers, row))

@@ -2,15 +2,14 @@
 # report.py
 #
 # Exercise 2.4
-import csv, sys, tableformat
-from fileparse import parse_csv
-from stock import Stock
-from portfolio import Portfolio
+import csv, sys
+from . import tableformat
+from .fileparse import parse_csv
+from .portfolio import Portfolio
 
-def read_portfolio(filename):
+def read_portfolio(filename, **opts):
     with open(filename) as f:
-        portdicts = parse_csv(f, select=['name','shares','price'], types=[str, int, float], has_headers=True)
-    portfolio = Portfolio( [ Stock(p['name'], p['shares'], p['price']) for p in portdicts] )
+        portfolio = Portfolio.from_csv(f, **opts)
     return portfolio
 
 def read_prices(filename):
